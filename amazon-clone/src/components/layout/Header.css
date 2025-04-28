@@ -2,13 +2,14 @@
     background-color: #141921;
     width: 100%;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: center;
+   
 }
 
 .header .logo-img{
     width: 150px;
-    height: 150px;
+    height: 120px;
     object-fit: contain;
     object-position: center;
 }
