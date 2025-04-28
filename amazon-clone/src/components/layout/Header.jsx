@@ -17,7 +17,7 @@ const Header = () => {
                 </div>
                 {/* end of header search */}
             <div className="header_nav">
-                <Link to={"/home"}>
+                <Link to={"/login"}>
                 <div className="header_option">
                 <span className="header_optionLineOne">Hello Guest</span>
                 <span className="header_optionLineTwo">Orders</span>

@@ -1,0 +1,8 @@
+.home-wrapper .banner{
+    width: 100%;
+    height: 30vh;
+    background: url('/public/banner.png');
+    background-position: top;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
