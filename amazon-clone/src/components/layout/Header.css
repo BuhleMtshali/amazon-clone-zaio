@@ -42,6 +42,7 @@
     flex-direction: column;
     color: #F8F9FB;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .header .header_nav .header_option span{

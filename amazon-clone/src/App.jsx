@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import Home from './components/Home';
 import Header from './components/layout/Header';
 import Products from './components/Products';
@@ -10,12 +10,14 @@ function App() {
   return (
     <>
     <Header />
-    <Routes>
-      <Route path='/home' element={<Home />} />
-      <Route path='/products' element={<Products />} />
-      <Route path='/product-details/:id' element={<ProductDetails />} />
-    </Routes>
-      
+    <main>
+      <Routes>
+        <Route path="/" element={<Navigate to="/home" />} />
+        <Route path='/home' element={<Home />} />
+        <Route path='/products' element={<Products />} />
+        <Route path='/products/:id' element={<ProductDetails />} />
+      </Routes>
+    </main>
     </>
     
   )
