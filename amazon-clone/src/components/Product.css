@@ -1,6 +1,12 @@
 .product{
     background-color: white;
-    padding: 15px;
+    padding: 20px;
+    cursor: pointer;
+   transition: all 0.3s ease-in-out;
+}
+
+.product:hover{
+    transform: scale(0.9);
 }
 
 .product .product-image{
@@ -13,4 +19,19 @@
     height: 100%;
     object-fit: contain;
     object-position: center;
+}
+
+.product .product_info p{
+    font-size: 14px;
+}
+
+
+.product .product_info .price{
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.product .product_info .price span{
+    font-weight: 500;
+    font-size: 14px;
 }
