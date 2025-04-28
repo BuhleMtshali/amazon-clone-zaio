@@ -1,16 +1,16 @@
 import React from 'react'
 import './Product.css';
 
-const Product = () => {
+const Product = ({ id, image, title, rating, price }) => {
   return (
     <div className="product">
         <div className="product-image">
-        <img src="/product1.png" alt="product 1" />
+        <img src={image} alt="product 1" />
         </div>
         <div className="product_info">
-        <p>SAMSUNG Galaxy Tab S9 FE+ Plus 12.4” 256GB Android Tablet, Long Battery Life, Powerful Processor, S Pen, 8MP Camera, Lightweight Durable Design, Expandable Storage, US Version, 2023, Mint</p>
-        <p className="rating">5</p>
-        <p className="price"><span>R</span> 850.00</p>
+        <p>{title}</p>
+        <p className="rating">{rating}</p>
+        <p className="price"><span>R</span> {price}</p>
         <button>Add to Cart</button>
         </div>
     </div>
