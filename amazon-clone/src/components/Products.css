@@ -3,5 +3,6 @@
     width: 100%;
     display: grid;
     gap: 15px;
+    margin-top: 20px;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }

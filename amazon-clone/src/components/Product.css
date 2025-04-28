@@ -35,3 +35,13 @@
     font-weight: 500;
     font-size: 14px;
 }
+
+.product .product_info button{
+    margin: 15px 0;
+    padding: 10px 25px;
+    font-size: 0.9rem;
+    color: white;
+    background-color: #F3A847;
+    border: none;
+    font-weight: 600;
+}
