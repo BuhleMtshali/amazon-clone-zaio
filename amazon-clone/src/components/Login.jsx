@@ -13,7 +13,7 @@ const reducer = (state, action) => {
   }
 }
 
-const Login = () => {
+const Login = ({ onLogin }) => {
   const [formIsValid, setFormIsValid] = useState(false);
 
 
@@ -46,7 +46,7 @@ const Login = () => {
 
   const signIn = e => {
     e.preventDefault();
-    console.log(email)
+    onLogin(email, password)
   }
 
   return (
