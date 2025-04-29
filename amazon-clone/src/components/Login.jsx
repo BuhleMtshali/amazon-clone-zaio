@@ -22,16 +22,18 @@ const Login = () => {
     passwordValue: "",
   });
 
+  const { emailValue: email, passwordValue: password } = state;
+
   useEffect(() => {
     const identifier = setTimeout(() => {
       setFormIsValid(
-        state.emailValue.includes("@") && state.passwordValue.trim().length > 6
+        email.includes("@") && password.trim().length > 6
       );
     }, 500);
     return() => {
       clearTimeout(identifier)
     }
-  }, [state.emailValue, state.passwordValue])
+  }, [email, password])
 
 
   const emailChangeHandler = e => {
@@ -44,7 +46,7 @@ const Login = () => {
 
   const signIn = e => {
     e.preventDefault();
-    console.log(state.emailValue)
+    console.log(email)
   }
 
   return (
