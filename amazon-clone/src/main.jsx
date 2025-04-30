@@ -5,7 +5,8 @@ import App from './App.jsx';
 import { BrowserRouter } from 'react-router-dom';
 // import { AuthContextProvider } from './context/authContext.jsx';
 import { ShoppingState } from './context/shopping/ShoppingState.jsx';
-import reducer, { initialState, StateProvider } from './components/StateProvider.jsx';
+import { StateProvider } from './components/StateProvider.jsx';
+import reducer, { initialState } from './components/reducer.jsx';
 // import reportWebVitals from './reportWebVitals';
 
 createRoot(document.getElementById('root')).render(
