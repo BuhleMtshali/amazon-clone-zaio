@@ -32,8 +32,8 @@ function App() {
   }
 
   return (
-    <AuthContext.Provider  value={{isLoggedIn: isLoggedIn}}>
-    <Header isAuthenticated={isLoggedIn} onLogout={logoutHandler}/>
+    <AuthContext.Provider  value={{ isLoggedIn: isLoggedIn, onLogout: logoutHandler }}>
+    <Header />
     <main>
       <Routes>
         <Route path="/" element={<Navigate to="/home" />} />

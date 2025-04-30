@@ -4,13 +4,13 @@ import './Header.css';
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import { Link } from "react-router-dom";
-import AuthContext from "../../context/authContext";
+import AuthContext from '../../context/authContext';
 
-const Header = ({ onLogout }) => {
+const Header = () => {
     const ctx = useContext(AuthContext);
-     return(
+            return(
                      <div className="header">
-                     <Link to={"/home"}>
+                     <Link to={"/"}>
                      <img src="/logo.png" alt="logo image" className="logo-img"/>
                      </Link>
                      <div className="header_search">
@@ -20,7 +20,7 @@ const Header = ({ onLogout }) => {
                      {/* end of header search */}
                  <div className="header_nav">
                      { ctx.isLoggedIn ?  (<Link to={"/"}>
-                     <div className="header_option" onClick={onLogout}>
+                     <div className="header_option" onClick={ctx.onLogout}>
                      <span className="header_optionLineOne">Hello User</span>
                      <span className="header_optionLineTwo">Logout</span>
                      </div>
