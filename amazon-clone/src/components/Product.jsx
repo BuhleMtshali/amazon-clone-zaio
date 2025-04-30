@@ -1,7 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import './Product.css';
+import ShoppingContext from '../context/shopping/shoppingContext';
+import shoppingContext from '../context/shopping/shoppingContext';
 
 const Product = ({ id, image, title, rating, price }) => {
+  const shoppingContext  = useContext(shoppingContext);
+  const  { addToBasket } = shoppingContext;
+  const AddToBasketHandler = () => {
+    addToBasket({item: { id, image, title, rating, price } })
+  }
   return (
     <div className="product">
         <div className="product-image">
@@ -11,7 +18,7 @@ const Product = ({ id, image, title, rating, price }) => {
         <p>{title}</p>
         <p className="rating">{rating}</p>
         <p className="price"><span>R</span> {price}</p>
-        <button>Add to Cart</button>
+        <button onClick={AddToBasketHandler}>Add to Cart</button>
         </div>
     </div>
   )
