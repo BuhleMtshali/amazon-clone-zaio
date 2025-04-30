@@ -26,16 +26,23 @@ const [{}, dispatch] = useStateValue();
       console.log("user is -> ", authUser);
 
       if(authUser){
-        setUser({user: authUser})
+        dispatch({
+          type: 'SET_USER',
+          user: authUser
+        })
       } else {
-        setUser({user: null})
+       dispatch({
+        type: 'SET_USER',
+        user: null
+       })
       }
     })
   }, [])
 
 
   return (
-    <AuthContext.Provider  value={{ isLoggedIn: isLoggedIn, onLogout: logoutHandler }}>
+    // <AuthContext.Provider }}>
+    <>
     <Header />
     <main>
       <Routes>
@@ -43,11 +50,11 @@ const [{}, dispatch] = useStateValue();
         <Route path='/home' element={<Home />} />
         <Route path='/products' element={<Products />} />
         <Route path='/products/:id' element={<ProductDetails />} />
-        <Route path='/login' element={<Login onLogin={loginHandler}/>} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/payment' element={<Payment />} stripe={promise}/>
       </Routes>
     </main>
-    </AuthContext.Provider>
-    
+    </>
   )
 }
 
