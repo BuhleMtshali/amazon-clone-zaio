@@ -7,8 +7,7 @@ const AuthContext = createContext({
 
 });
 
-
- const AuthContextProvider = (props) => {
+export const AuthContextProvider = (props) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     
       useEffect(() => {

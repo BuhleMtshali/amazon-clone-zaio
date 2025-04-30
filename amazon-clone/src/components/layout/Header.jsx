@@ -4,14 +4,18 @@ import './Header.css';
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import { Link } from "react-router-dom";
-import AuthContext from '../../context/authContext';
 import ShoppingContext from '../../context/shopping/shoppingContext';
-
+import { auth } from '../../firebase';
+import { useStateValue } from '../StateProvider';
 
 const Header = () => {
-    const shoppingContext  = useContext(ShoppingContext);
-    const  { addToBasket } = shoppingContext;
-    const ctx = useContext(AuthContext);
+    const [{basket, user}, dispatch] = useStateValue();
+
+    const handleAuthentification = () => {
+        if(user){
+            auth.signOut();    
+        }
+    }
             return(
                      <div className="header">
                      <Link to={"/"}>
@@ -23,17 +27,12 @@ const Header = () => {
                      </div>
                      {/* end of header search */}
                  <div className="header_nav">
-                     { ctx.isLoggedIn ?  (<Link to={"/"}>
-                     <div className="header_option" onClick={ctx.onLogout}>
-                     <span className="header_optionLineOne">Hello User</span>
-                     <span className="header_optionLineTwo">Logout</span>
+                    <Link to={!user && '/login'}>
+                     <div className="header_option" onClick={handleAuthentification}>
+                     <span className="header_optionLineOne">Hello {!user ? 'Guest' : user.email}</span>
+                     <span className="header_optionLineTwo">{user ? 'Sign Out' : 'Sign In'}</span>
                      </div>
-                     </Link>) : (<Link to={"/login"}>
-                     <div className="header_option">
-                     <span className="header_optionLineOne">Hello Guest</span>
-                     <span className="header_optionLineTwo">Sign In</span>
-                     </div>
-                     </Link>) }
+                     </Link>
                      <div className="header_option">
                      <span className="header_optionLineOne">Returns</span>
                      <span className="header_optionLineTwo">Orders</span>
@@ -45,7 +44,7 @@ const Header = () => {
                      <Link to={"/home"}>
                      <div className="header_optionBasket">
                      <ShoppingBasketIcon />
-                     <span className="header_optionLineTwo header_basketCount">0</span>
+                     <span className="header_optionLineTwo header_basketCount">{basket?.length}</span>
                      </div>
                      </Link>
                  </div>

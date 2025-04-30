@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+
 import { Route, Routes, Navigate } from 'react-router-dom';
 import Home from './components/Home';
 import Header from './components/layout/Header';
@@ -7,29 +7,28 @@ import ProductDetails from './components/ProductDetails';
 import Login from './components/Login';
 import './App.css'
 import { emphasize } from '@mui/material';
-import AuthContext from './context/authContext';
+import AuthContext from './context/AuthContext';
+import { auth } from './firebase';
+import ShoppingContext from './context/shopping/shoppingContext';
+import { useContext, useEffect } from 'react';
 
 function App() {
+  const shoppingContext  = useContext(ShoppingContext);
+  const  { setUser } = shoppingContext;
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    const userInfo = localStorage.getItem('isLoggedIn');
+    auth.onAuthStateChanged((authUser) => {
+      console.log("user is -> ", authUser);
 
-    if(userInfo === '1'){
-      setIsLoggedIn(true)
-    }
-  }, []);
+      if(authUser){
+        setUser({user: authUser})
+      } else {
+        setUser({user: null})
+      }
+    })
+  }, [])
 
-  const loginHandler = (email, password) => {
-    localStorage.setItem('isLoggedIn', '1');
-    setIsLoggedIn(true);
-  }
-
-  const logoutHandler = () => {
-    localStorage.removeItem('isLoggedIn');
-    setIsLoggedIn(false);
-  }
 
   return (
     <AuthContext.Provider  value={{ isLoggedIn: isLoggedIn, onLogout: logoutHandler }}>
