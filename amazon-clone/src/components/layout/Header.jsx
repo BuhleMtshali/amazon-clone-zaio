@@ -6,7 +6,10 @@ import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import { Link } from "react-router-dom";
 import AuthContext from '../../context/authContext';
 
+
 const Header = () => {
+    const shoppingContext  = useContext(shoppingContext);
+    const  { addToBasket } = shoppingContext;
     const ctx = useContext(AuthContext);
             return(
                      <div className="header">
