@@ -7,6 +7,7 @@ import ProductDetails from './components/ProductDetails';
 import Login from './components/Login';
 import './App.css'
 import { emphasize } from '@mui/material';
+import AuthContext from './context/authContext';
 
 function App() {
 
@@ -31,8 +32,8 @@ function App() {
   }
 
   return (
-    <>
-    <Header isAuthenticated={isLoggedIn} onLogout={loginHandler}/>
+    <AuthContext.Provider  value={{isLoggedIn: isLoggedIn}}>
+    <Header isAuthenticated={isLoggedIn} onLogout={logoutHandler}/>
     <main>
       <Routes>
         <Route path="/" element={<Navigate to="/home" />} />
@@ -42,7 +43,7 @@ function App() {
         <Route path='/login' element={<Login onLogin={loginHandler}/>} />
       </Routes>
     </main>
-    </>
+    </AuthContext.Provider>
     
   )
 }
