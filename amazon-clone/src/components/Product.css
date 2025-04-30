@@ -46,3 +46,8 @@
     font-weight: 600;
     cursor: pointer;
 }
+
+.rating{
+    display: flex;
+    margin: 10px 0;
+}

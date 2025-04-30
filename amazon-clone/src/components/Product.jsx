@@ -16,7 +16,9 @@ const Product = ({ id, image, title, rating, price }) => {
         </div>
         <div className="product_info">
         <p>{title}</p>
-        <p className="rating">{rating}</p>
+        <div className="rating">
+        {Array(rating).fill().map((_, i)=> (<p>⭐</p>))}
+        </div>
         <p className="price"><span>R</span> {price}</p>
         <button onClick={AddToBasketHandler}>Add to Cart</button>
         </div>
