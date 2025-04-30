@@ -5,15 +5,19 @@ import App from './App.jsx';
 import { BrowserRouter } from 'react-router-dom';
 // import { AuthContextProvider } from './context/authContext.jsx';
 import { ShoppingState } from './context/shopping/ShoppingState.jsx';
-import reducer, { initialState } from './components/StateProvider.jsx';
+import reducer, { initialState, StateProvider } from './components/StateProvider.jsx';
+// import reportWebVitals from './reportWebVitals';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
       {/* <AuthContextProvider> */}
-        <ShoppingState>
-        <App />
-        </ShoppingState>
+        {/* <ShoppingState> */}
+        <StateProvider initialState={initialState} reducer={reducer}>
+          <App />
+        </StateProvider>
+        
+        {/* </ShoppingState> */}
       {/* </AuthContextProvider> */}
     </BrowserRouter>
   </StrictMode>,

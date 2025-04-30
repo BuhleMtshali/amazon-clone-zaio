@@ -1,14 +1,29 @@
 import React, { useContext } from 'react'
 import './Product.css';
 import ShoppingContext from '../context/shopping/shoppingContext';
+import { useStateValue } from './StateProvider';
 
 
 const Product = ({ id, image, title, rating, price }) => {
-  const shoppingContext  = useContext(ShoppingContext);
-  const  { addToBasket } = shoppingContext;
-  const AddToBasketHandler = () => {
-    addToBasket({item: { id, image, title, rating, price } })
+  // const shoppingContext  = useContext(ShoppingContext);
+  // const  { addToBasket } = shoppingContext;
+  // const AddToBasketHandler = () => {
+  //   addToBasket({item: { id, image, title, rating, price } })
+  // }
+  const [{ basket }, dispatch] = useStateValue();
+  const addToBasket = () => {
+    dispatch({
+      type: 'ADD_TO_BASKET',
+      item: {
+        id: id,
+        title: title,
+        image: image,
+        price: price,
+        rating: rating,
+      }
+    })
   }
+
   return (
     <div className="product">
         <div className="product-image">
