@@ -10,12 +10,16 @@ import { emphasize } from '@mui/material';
 import AuthContext from './context/AuthContext';
 import { auth } from './firebase';
 import ShoppingContext from './context/shopping/shoppingContext';
-import { useContext, useEffect } from 'react';
+import { use, useContext, useEffect } from 'react';
+import Payment from './components/Payment';
+import { useStateValue } from './components/StateProvider';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
+
+const promise = loadStripe('pk_test_51RJiGvPpeDP63jSDufIq10UR7Bb8pHbHxygFktQpCPunlZsdCrI2LauJfObbGA3xA8t7eu4Uxye5SlfaYPudVnQT00Ow7etQip')
 
 function App() {
-  const shoppingContext  = useContext(ShoppingContext);
-  const  { setUser } = shoppingContext;
-
+const [{}, dispatch] = useStateValue();
 
   useEffect(() => {
     auth.onAuthStateChanged((authUser) => {

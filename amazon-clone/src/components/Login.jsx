@@ -5,34 +5,26 @@ import AuthContext from '../context/AuthContext';
 import ShoppingContext from '../context/shopping/shoppingContext';
 import { auth } from '../firebase';
 
-
-// const reducer = (state, action) => {
-//   const shoppingContext  = useContext(ShoppingContext);
-//   const  { basket, user } = shoppingContext;
-// }
-
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const history = useNavigate();
-  const shoppingContext  = useContext(ShoppingContext);
-  // const  { setUser } = shoppingContext;
-  // const ctx = useContext(AuthContext)
+  
 
   const signIn = e => {
     e.preventDefault();
     auth.signInWithEmailAndPassword(email, password).then(auth => {
-      history.push('/')}).catch(error => alert(error.message))
-
+      history.push('/')
+    })
+    .catch(error => alert(error.message))
   }
 
   const register = e => {
     e.preventDefault();
-    auth.createUserWithEmailAndPassword(email, password).then((auth) => {
-      if(auth){
-        history.push('/')
-      }
-    }).catch(error => alert(error.message))
+    auth.signInWithEmailAndPassword(email, password).then(auth => {
+      history.push('/')
+    })
+    .catch(error => alert(error.message))
   }
 
   return (
