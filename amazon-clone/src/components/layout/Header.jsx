@@ -5,10 +5,11 @@ import SearchIcon from '@mui/icons-material/Search';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import { Link } from "react-router-dom";
 import AuthContext from '../../context/authContext';
+import ShoppingContext from '../../context/shopping/shoppingContext';
 
 
 const Header = () => {
-    const shoppingContext  = useContext(shoppingContext);
+    const shoppingContext  = useContext(ShoppingContext);
     const  { addToBasket } = shoppingContext;
     const ctx = useContext(AuthContext);
             return(
