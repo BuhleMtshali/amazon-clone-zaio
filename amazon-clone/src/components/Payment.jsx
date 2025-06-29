@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';  // <-- updated here
 import CheckoutProduct from './CheckoutProduct';
 import { useStateValue } from "./StateProvider";
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
@@ -8,9 +8,9 @@ import { getBasketTotal } from './reducer';
 import { db } from '../firebase';
 import axios from '../components/axios';
 
-function Payment (){
-  const [{basket, user}, dispatch] = useStateValue();
-  const history = useHistory();
+function Payment() {
+  const [{ basket, user }, dispatch] = useStateValue();
+  const navigate = useNavigate();  // <-- replaced useHistory with useNavigate
   const stripe = useStripe();
   const elements = useElements();
 
@@ -26,57 +26,61 @@ function Payment (){
         method: 'post',
         url: `/payments/create?total=${Math.round(getBasketTotal(basket) * 100)}`
       });
-      setClientSecret(response.data.clientSecret)
-    }
+      setClientSecret(response.data.clientSecret);
+    };
     getClientSecret();
-
   }, [basket]);
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setProcessing(true);
 
-const handleSubmit = async (event) => {
-  event.preventDefault();
-  setProcessing(true);
-  const payload = await stripe.confirmCardPayment(clientSecret, {
-    payment_method: {
-      card: elements.getElement(CardElement)
-    }
-  }).then(({ paymentIntent }) => {
-    db
-    .collection('users')
-    .doc(user?.uid)
-    .collection('orders')
-    .doc(paymentIntent.id)
-    .set({
-      basket: basket,
-      amount: paymentIntent.amount,
-      created: paymentIntent.created
-    })
-    setSucceeded(true)
-    setError(null)
-    setProcessing(false);
-    dispatch({
-      type: 'EMPTY_BASKET'
-    })
-    history.replace('/orders')
-  })
-}
+    const payload = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: {
+        card: elements.getElement(CardElement)
+      }
+    }).then(({ paymentIntent }) => {
+      db
+        .collection('users')
+        .doc(user?.uid)
+        .collection('orders')
+        .doc(paymentIntent.id)
+        .set({
+          basket: basket,
+          amount: paymentIntent.amount,
+          created: paymentIntent.created
+        });
 
-const handleChange = e => {
-  setDisabled(e.empty);
-  setError(e.error ? e.error.message : "")
-}
+      setSucceeded(true);
+      setError(null);
+      setProcessing(false);
 
-return (
-  <div className="payment">
-    <div className="payment_container">
-      <h1>Checkout (<Link to={'/checkout'}>{basket?.length}</Link>)</h1>
-      <div className="payment_title"><h3>Delivery Address</h3></div>
-      <p>{user?.email}</p>
-      <p>123 React Lane</p>
-      <p>SAN Francisco</p>
+      dispatch({
+        type: 'EMPTY_BASKET'
+      });
+
+      navigate('/orders', { replace: true });  // <-- updated navigation here
+    });
+  };
+
+  const handleChange = e => {
+    setDisabled(e.empty);
+    setError(e.error ? e.error.message : "");
+  };
+
+  return (
+    <div className="payment">
+      <div className="payment_container">
+        <h1>Checkout (<Link to={'/checkout'}>{basket?.length}</Link>)</h1>
+        <div className="payment_title"><h3>Delivery Address</h3></div>
+        <p>{user?.email}</p>
+        <p>123 React Lane</p>
+        <p>SAN Francisco</p>
+      </div>
+      <h3>Review Items and delivery</h3>
+      {/* You probably want to render basket items and payment form here */}
     </div>
-    <h3>Review Items and delivery</h3>
-  </div>
-)
-
+  );
 }
+
+export default Payment;
