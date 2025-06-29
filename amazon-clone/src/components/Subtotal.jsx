@@ -2,10 +2,10 @@ import React from 'react';
 import CurrencyFormat from 'react-currency-format';
 import { useStateValue } from './StateProvider';
 import { getBasketTotal } from './reducer';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; // FIXED
 
 const Subtotal = () => {
-  const history = useHistory();
+  const navigate = useNavigate(); // FIXED
   const [{ basket, user }] = useStateValue();
 
   return (
@@ -25,9 +25,9 @@ const Subtotal = () => {
         prefix={'$'}
       />
       {user ? (
-        <button onClick={() => history.push('/payment')}>Proceed to Checkout</button>
+        <button onClick={() => navigate('/payment')}>Proceed to Checkout</button>
       ) : (
-        <button onClick={() => history.push('/login')}>
+        <button onClick={() => navigate('/login')}>
           Sign in or create account to complete checkout
         </button>
       )}
